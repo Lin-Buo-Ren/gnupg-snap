@@ -147,3 +147,42 @@ parts:
     #source-depth: 1
 
     plugin: autotools
+    configflags:
+    - --enable-g13
+
+    build-packages:
+    - libassuan-dev
+    - libgcrypt20-dev
+
+    # TLS access to keyservers
+    - libgnutls28-dev
+
+    - libgpg-error-dev
+    - libksba-dev
+
+    # LDAP support
+    - libldap2-dev
+
+    - libnpth0-dev
+
+    # Readline support
+    - libreadline-dev
+
+    # TOFU support
+    - libsqlite3-dev
+
+    # Integrated CCID smartcard reader driver support
+    - libusb-1.0-0-dev
+
+    - pkg-config
+    stage-packages:
+    - libassuan0
+    - libgcrypt20
+    - libgnutls30
+    - libgpg-error0
+    - libksba8
+    - libldap-2.4-2
+    - libnpth0
+    - libreadline7
+    - libsqlite3-0
+    - libusb-1.0-0
