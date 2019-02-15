@@ -70,8 +70,11 @@ plugs:
   #home:
   #removable-media: # Non-A/C
 
-  # Network access
+  # Network access(for contacting the keyserver)
   network:
+
+  # Smartcard access(T.B.A.)
+  raw-usb:
 
 #slots:
 
