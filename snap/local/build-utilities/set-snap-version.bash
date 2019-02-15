@@ -14,13 +14,16 @@ init(){
 		packaging_revision
 
 	upstream_version="$(
-		git \
-			-C parts/gnupg/src \
-			describe \
-			--always \
-			--dirty=-d \
-			--tags \
-		| sed s/^v//
+# 		git \
+# 			-C parts/gnupg/src \
+# 			describe \
+# 			--always \
+# 			--dirty=-d \
+# 			--tags \
+# 		| sed s/^v//
+		head \
+			--lines=1 \
+			parts/gnupg/src/VERSION
 	)"
 
 	packaging_revision="$(
