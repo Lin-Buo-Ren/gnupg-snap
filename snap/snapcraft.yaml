@@ -152,6 +152,11 @@ parts:
 
     build-packages:
     - libassuan-dev
+
+    # Compression algorithms support
+    - libbz2-dev
+    - zlib1g-dev
+
     - libgcrypt20-dev
 
     # TLS access to keyservers
@@ -177,6 +182,7 @@ parts:
     - pkg-config
     stage-packages:
     - libassuan0
+    - libbz2-1.0
     - libgcrypt20
     - libgnutls30
     - libgpg-error0
@@ -186,6 +192,7 @@ parts:
     - libreadline7
     - libsqlite3-0
     - libusb-1.0-0
+    - zlib1g
 
 # Apps that are exposed by the snap package
 # If the _app_name_ is identical with the _snap_name_ it can be directly run
