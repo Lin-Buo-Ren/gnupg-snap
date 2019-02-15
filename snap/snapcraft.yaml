@@ -120,9 +120,22 @@ parts:
     stage:
     - -bin/README.*
 
-  # Remote part for fixing the glibc locales(and gnu gettext I18N support)
-  # This part is only required for non GUI apps that don't uses the desktop-launch launchers
-  #locales-launch:
+  locales-launch-deps:
+    plugin: nil
+    stage-packages:
+    # For localedef(1)
+    - libc-bin
+
+    # For locale data used by localedef(1)
+    - locales
+
+    # All pre-generated locale data
+    # DISABLED: Lots of duplicate data will be included in snap when this is staged, unless the target machine has no resource to generate them in runtime otherwise not using it
+    #
+    #   Lack of compiled locales breaks gettext based localisation - snapcraft - snapcraft.io
+    #   https://forum.snapcraft.io/t/lack-of-compiled-locales-breaks-gettext-based-localisation/3758
+    #
+    #- locales-all
 
   gnupg:
     source: http://www.ring.gr.jp/pub/net/gnupg/gnupg/gnupg-2.2.13.tar.bz2
@@ -188,4 +201,5 @@ apps:
     # NOTE: The right angle bracket at the beginning of the value of the `command` keyword starts a YAML folded style block scalar, refer the following spec document for more info: http://yaml.org/spec/1.2/spec.html#id2796251
     command: >
       bin/gnupg-launch
+      locales-launch
       gpg
