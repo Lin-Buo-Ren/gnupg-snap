@@ -175,14 +175,14 @@ parts:
 # If the _app_name_ is identical with the _snap_name_ it can be directly run
 # with `_snap_name_` or `snap run _snap_name_` commands, otherwise it can only be run
 # via `_snap_name_._app_name_` or `snap run _snap_name_._app_name_`
+#$ ls parts/gnupg/install/bin/
+#dirmngr         gpg                gpg-wks-server  gpgscm  gpgv
+#dirmngr-client  gpg-agent          gpgconf         gpgsm   kbxutil
+#g13             gpg-connect-agent  gpgparsemail    gpgtar  watchgnupg
 apps:
-  gnupg:
+  gpg:
     # The command to run the application, the base command should be an *relative path* to an executable file rooted from the `prime` directory (for `classic` confinement compatiblity, where command search PATHs under $SNAP isn't set for library compatiblity reasons).  The arguments are usually other launchers' *absolute path* rooted from the $SNAP environment variable that are *stacked over* previous ones to consolidate their runtime environment modifications.
     # NOTE: The right angle bracket at the beginning of the value of the `command` keyword starts a YAML folded style block scalar, refer the following spec document for more info: http://yaml.org/spec/1.2/spec.html#id2796251
     command: >
-      "${SNAP}"/bin/gnupg-launch
-      gnupg
-
-    # If the providing part of the app. has a desktop entry, specify its path relative to the `prime` directory.
-    # If the packaging target doesn't provide a desktop entry, ignore the `desktop` key and implement a desktop entry in `/snap/gui`
-    #desktop: share/applications/gnupg.desktop
+      bin/gnupg-launch
+      gpg
