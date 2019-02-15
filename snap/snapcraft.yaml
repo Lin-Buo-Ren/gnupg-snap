@@ -1,6 +1,6 @@
 %YAML 1.1
 ---
-# Snapcraft Recipe for [Project]
+# Snapcraft Recipe for GnuPG
 # ------------------------------
 # This file is in the YAML data serialization format:
 # http://yaml.org
@@ -13,24 +13,14 @@
 #   https://forum.snapcraft.io/c/doc
 # For support refer to the snapcraft section in the Snapcraft Forum:
 # https://forum.snapcraft.io/c/snapcraft
-
-# All following comments, including this one, are designed to be stripped
-# before contributing the recipe to the upstream
-
-# my-awesome-app, my-app-name, my-app-command, my-app-launch, my-app-part
-# are placeholders text meant to be replaced by appropriate content
-
-name: my-awesome-app
-summary: Single-line elevator pitch for your amazing snap under 79 chars.
+name: gnupg
+summary: A complete and free implementation of the OpenPGP standard
 description: |
-  This is my-awesome-app's description. You have a paragraph or two to tell
-  the most important story about your snap. Keep it under 100 words though,
-  we live in tweetspace and your description wants to look good in the snap
-  store.
+  GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP). GnuPG allows you to encrypt and sign your data and communications; it features a versatile key management system, along with access modules for all kinds of public key directories. GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications.
 
 # The path of icon to represent the snap, relative to the source tree directory
 # Only PNG or SVG image is supported, dimension must be greater than 256x256px
-icon: snap/gui/my-awesome-app.png
+icon: snap/gui/gnupg-logo.waifu2x.1.6x.adapted.svg
 
 # Version string just for humans, typically '1.2+git' or '1.3.2'
 # The wrapping single quotes are often required to avoid the version string
@@ -44,19 +34,23 @@ version: determined-by-version-script
 # still required).
 # NOTE: The resulting version string cannot be longer than 32 characters
 version-script: ./snap/local/build-utilities/set-snap-version.bash
-#version-script: git -C parts/my-app-part/src describe --always --dirty --tags
+#version-script: git -C parts/gnupg/src describe --always --dirty --tags
 
 # Security confinement
 # Use `devmode` to getting started
 # Flip to `strict` once you have the right plugs and slots,
 # or `classic` once you determine that strict confinement is not currently possible
-confinement: strict
+confinement: devmode
 
 # Snap Grade
 # Use `devel` to getting started
 # Flip to `stable` once you determine that the snap is matured, only `stable` grade
 # snaps can be promoted to `candidate` and `stable` channels
-grade: stable
+grade: devel
+
+# Snap Base
+# The base snap this snap is based on
+base: core18
 
 # Refer the following documentation for asserting interface plugs and slots in a security confined snap:
 # Interface management - doc - snapcraft.io
@@ -66,18 +60,18 @@ grade: stable
 # Non-A/C: Non-autoconnect interface
 plugs:
   # For snaps with a graphical user interface:
-  desktop:
-  desktop-legacy:
-  x11:
-  unity7:
-  wayland:
+  #desktop:
+  #desktop-legacy:
+  #x11:
+  #unity7:
+  #wayland:
 
   # Storage access
   #home:
   #removable-media: # Non-A/C
 
   # Network access
-  #network:
+  network:
 
 #slots:
 
@@ -86,23 +80,16 @@ plugs:
 # with `_snap_name_` or `snap run _snap_name_` commands, otherwise it can only be run
 # via `_snap_name_._app_name_` or `snap run _snap_name_._app_name_`
 apps:
-  my-app-name:
+  gnupg:
     # The command to run the application, the base command should be an *relative path* to an executable file rooted from the `prime` directory (for `classic` confinement compatiblity, where command search PATHs under $SNAP isn't set for library compatiblity reasons).  The arguments are usually other launchers' *absolute path* rooted from the $SNAP environment variable that are *stacked over* previous ones to consolidate their runtime environment modifications.
     # NOTE: The right angle bracket at the beginning of the value of the `command` keyword starts a YAML folded style block scalar, refer the following spec document for more info: http://yaml.org/spec/1.2/spec.html#id2796251
     command: >
-      bin/desktop-launch
-      "${SNAP}"/bin/my-awesome-app-launch
-      "${SNAP}"/bin/zenity
-        --info
-        --ok-label='Got it'
-        --title='My Awesome App'
-        --text='This is a demonstrative application for Snapcrafters Template Plus.\nIt indicates that the snapped application has been launched properly.'
-        --window-icon="${SNAP}"/snap/gui/my-awesome-app.png
-        --width=600
+      "${SNAP}"/bin/gnupg-launch
+      gnupg
 
     # If the providing part of the app. has a desktop entry, specify its path relative to the `prime` directory.
     # If the packaging target doesn't provide a desktop entry, ignore the `desktop` key and implement a desktop entry in `/snap/gui`
-    #desktop: share/applications/my-app-name.desktop
+    #desktop: share/applications/gnupg.desktop
 
 # Run `snapcraft help sources` for supported keywords on pulling a part's source ingredients
 # Run `snapcraft plugins` for supported build helper plugins
@@ -150,43 +137,13 @@ parts:
   # This part is only required for non GUI apps that don't uses the desktop-launch launchers
   #locales-launch:
 
-  # Remote part for recording the exact revision for each part during building
-  parts-meta-info:
+  gnupg:
+    source: http://www.ring.gr.jp/pub/net/gnupg/gnupg/gnupg-2.2.13.tar.bz2
+    source-checksum: sha256/76c787a955f9e6e0ead47c9be700bfb9d454f955a7b7c7e697aa719bac7b11d8
+    #source: https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.13.tar.bz2
 
-  # Remote part for support of various desktop technologies
-  # Refer: https://github.com/ubuntu/snapcraft-desktop-helpers/blob/master/snapcraft.yaml
-  desktop-gtk3: # for zenity
+    #source: git://git.gnupg.org/gnupg.git
+    #source-tag: gnupg-2.2.13
+    #source-depth: 1
 
-  # Optional auxiliary part for displaying simple dialogs for better user experience, powered by Zenity
-  # https://forum.snapcraft.io/t/the-zenity-remote-part/8793
-  zenity:
-    # This part or part recipe is needed until LP#1766878 is fixed
-    #
-    # Bug #1766878 “$SNAPCRAFT_PROJECT_NAME used in a remote part expands to wrong value” : Bugs : Snapcraft
-    # https://bugs.launchpad.net/snapcraft/+bug/1766878
-    configflags:
-    - --datarootdir=/snap/$SNAPCRAFT_PROJECT_NAME/current/share
-    - --disable-libnotify
-    - --disable-webkitgtk
-    organize:
-      snap/$SNAPCRAFT_PROJECT_NAME/current: /
-
-  my-app-part:
-    after:
-    - build-utilities # for patch-desktop-entries.*
-
-    source: snap/local/empty
-    #source-type:
-    #source-tag:
-    #source-depth:
-
-    plugin: nil
-
-    override-stage: |
-      set \
-        -o errexit \
-        -o nounset
-
-      snapcraftctl stage
-
-      ./assets/build-utilities/patch-desktop-entries.bash
+    plugin: autotools
