@@ -5,7 +5,7 @@
 -->
 ![Logo of GnuPG](gui/gnupg-logo.png "Logo of GnuPG")
 
-**This is the unofficial snap for The GNU Privacy Guard**, *"A complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP)"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
+**This is the unofficial snap for The GNU Privacy Guard**, *"A complete and free implementation of the OpenPGP standard as defined by [RFC4880](https://www.ietf.org/rfc/rfc4880.txt) (also known as PGP)"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
 
 <!-- Uncomment and modify this when you are provided a build status badge
 [![Build Status Badge of the `gnupg` Snap](https://build.snapcraft.io/badge/Lin-Buo-Ren/gnupg-snap.svg "Build Status of the `gnupg` snap")](https://build.snapcraft.io/user/Lin-Buo-Ren/gnupg-snap)
