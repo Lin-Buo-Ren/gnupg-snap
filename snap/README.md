@@ -3,7 +3,7 @@
 	Use the Staticaly service for easy access to in-repo pictures:
 	https://www.staticaly.com/
 -->
-![(Placeholder) Icon of GnuPG](https://cdn.staticaly.com/gh/Lin-Buo-Ren/snapcrafters-template-plus/bea3bc56/snap/gui/gnupg.png "(Placeholder) Icon of GnuPG")
+![Logo of GnuPG](gui/gnupg-logo.png "Logo of GnuPG")
 
 **This is the unofficial snap for The GNU Privacy Guard**, *"A complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP)"*. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.
 
