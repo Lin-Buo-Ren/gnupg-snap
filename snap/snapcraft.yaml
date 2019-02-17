@@ -138,19 +138,34 @@ parts:
     #- locales-all
 
   gnupg:
-    source: http://www.ring.gr.jp/pub/net/gnupg/gnupg/gnupg-2.2.13.tar.bz2
-    source-checksum: sha256/76c787a955f9e6e0ead47c9be700bfb9d454f955a7b7c7e697aa719bac7b11d8
+    after:
+    - patches
+
+    #source: http://www.ring.gr.jp/pub/net/gnupg/gnupg/gnupg-2.2.13.tar.bz2
+    #source-checksum: sha256/76c787a955f9e6e0ead47c9be700bfb9d454f955a7b7c7e697aa719bac7b11d8
     #source: https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.2.13.tar.bz2
 
+    # Way faster mirror
+    source: https://github.com/gpg/gnupg.git
+
     #source: git://git.gnupg.org/gnupg.git
-    #source-tag: gnupg-2.2.13
-    #source-depth: 1
+    source-tag: gnupg-2.2.13
+    source-depth: 1
 
     plugin: autotools
     configflags:
     - --enable-g13
 
+    # Additional configure flags for building from development snapshot
+    - --enable-maintainer-mode
+
     build-packages:
+    # Additional build dependencies for building from development snapshot
+    - fig2dev
+    - gettext
+    - imagemagick-6.q16
+    - texinfo
+
     - libassuan-dev
 
     # Compression algorithms support
@@ -193,6 +208,23 @@ parts:
     - libsqlite3-0
     - libusb-1.0-0
     - zlib1g
+    override-build: |
+      set \
+        -o errexit \
+        -o nounset
+
+      sudo patch \
+        --strip=3 \
+        /etc/ImageMagick-6/policy.xml \
+        "${SNAPCRAFT_STAGE}"/assets/patches/policy.xml.patch
+
+      snapcraftctl build
+
+      sudo patch \
+        --reverse \
+        --strip=3 \
+        /etc/ImageMagick-6/policy.xml \
+        "${SNAPCRAFT_STAGE}"/assets/patches/policy.xml.patch
 
 # Apps that are exposed by the snap package
 # If the _app_name_ is identical with the _snap_name_ it can be directly run

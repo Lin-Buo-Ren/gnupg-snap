@@ -1,0 +1,12 @@
+The Ubuntu distribution of Imagemagick disables PDF generation in policy due to the ghostscript SAFER vulnerability, as the build requires it this patch modifies the default policy.
+
+--- /etc/ImageMagick-6/policy.xml	2019-02-15 15:40:04.937503616 +0800
++++ /etc/ImageMagick-6/policy.xml	2019-02-15 15:40:20.169352949 +0800
+@@ -73,6 +73,6 @@
+   <!-- disable ghostscript format types -->
+   <policy domain="coder" rights="none" pattern="PS" />
+   <policy domain="coder" rights="none" pattern="EPI" />
+-  <policy domain="coder" rights="none" pattern="PDF" />
++  <policy domain="coder" rights="write" pattern="PDF" />
+   <policy domain="coder" rights="none" pattern="XPS" />
+ </policymap>

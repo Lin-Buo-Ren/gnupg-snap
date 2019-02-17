@@ -13,18 +13,25 @@ init(){
 		upstream_version \
 		packaging_revision
 
-	upstream_version="$(
-# 		git \
-# 			-C parts/gnupg/src \
-# 			describe \
-# 			--always \
-# 			--dirty=-d \
-# 			--tags \
-# 		| sed s/^v//
-		head \
-			--lines=1 \
-			parts/gnupg/src/VERSION
-	)"
+	if test -f parts/gnupg/src/VERSION; then
+		# Release tarball build
+		upstream_version="$(
+			head \
+				--lines=1 \
+				parts/gnupg/src/VERSION
+		)"
+	else
+		# Build from development snapshot
+		upstream_version="$(
+			git \
+				-C parts/gnupg/src \
+				describe \
+				--always \
+				--dirty=-d \
+				--tags \
+			| sed s/^gnupg-//
+		)"
+	fi
 
 	packaging_revision="$(
 		git \
